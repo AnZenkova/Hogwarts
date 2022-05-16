@@ -2,9 +2,11 @@ package ru.hogwarts.school.serviceImpl;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,5 +47,16 @@ public class FacultyServiceImpl implements FacultyService {
                 .filter(s -> s.getColor().equals(color))
                 .collect(Collectors.toSet());
         return filter;
+    }
+
+    public List<Faculty> findByColorIgnoreCase(String color) {
+        return facultyRepository.findByColorIgnoreCase(color);
+    }
+    public List<Faculty> findByNameIgnoreCase(String name) {
+        return facultyRepository.findByNameIgnoreCase(name);
+    }
+
+    public Collection<Student> getStudents(Faculty faculty) {
+        return faculty.getStudents();
     }
 }
