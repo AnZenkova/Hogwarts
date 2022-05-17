@@ -56,7 +56,12 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findByNameIgnoreCase(name);
     }
 
-    public Collection<Student> getStudents(Faculty faculty) {
-        return faculty.getStudents();
+    public Collection<Student> getStudents(String faculty) {
+        List<Faculty> faculties = getAll();
+        Faculty faculty1 = faculties.stream()
+                .filter(s -> s.getName().equals(faculty))
+                .findFirst()
+                .get();
+        return faculty1.getStudents();
     }
 }

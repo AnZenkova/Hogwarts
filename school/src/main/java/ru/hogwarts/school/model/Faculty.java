@@ -12,6 +12,9 @@ public class Faculty {
     private String name;
     private String color;
 
+    private String student1;
+    private String student2;
+
     @OneToMany(mappedBy = "faculty")
     private Collection<Student> students;
 

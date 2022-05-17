@@ -66,8 +66,8 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public Collection<Student> getStudents(@RequestBody Faculty faculty) {
+    @GetMapping("{faculty}")
+    public Collection<Student> getStudents(@PathVariable String faculty) {
         return facultyService.getStudents(faculty);
     }
 }

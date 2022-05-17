@@ -17,5 +17,5 @@ public interface FacultyService {
     Set<Faculty> filterFaculty(String color);
     List<Faculty> findByColorIgnoreCase(String color);
     List<Faculty> findByNameIgnoreCase(String name);
-    Collection<Student> getStudents(Faculty faculty);
+    Collection<Student> getStudents(String faculty);
 }
