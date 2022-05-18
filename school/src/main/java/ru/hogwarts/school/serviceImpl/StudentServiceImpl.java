@@ -52,13 +52,13 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-    public String getFaculty(String student) {
-        List<Student> students = getAll();
-        Student student1 = students.stream()
-                .filter(s -> s.getName().equals(student))
-                .findFirst()
-                .get();
-        Faculty faculty = student1.getFaculty();
+    public String getFaculty(Long studentId) {
+//        Student student1 = students.stream()
+//                .filter(s -> s.getName().equals(student))
+//                .findFirst()
+//                .get();
+        Student student = findStudent(studentId);
+        Faculty faculty = student.getFaculty();
         return faculty.getName();
     }
 }

@@ -4,10 +4,9 @@ package ru.hogwarts.school.serviceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.MultipartFilter;
-import ru.hogwarts.school.Avatar;
-import ru.hogwarts.school.AvatarCoverService;
-import ru.hogwarts.school.AvatarRepository;
+import ru.hogwarts.school.model.Avatar;
+import ru.hogwarts.school.service.AvatarCoverService;
+import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -67,7 +66,7 @@ public class AvatarCoverServiceImpl implements AvatarCoverService {
     }
 
     public Avatar findAvatar(Long studentId) {
-        return avatarRepository.findByStudentId(studentId).orElseThrow();
+        return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
     private byte[] generateImageData(Path filePath) throws IOException {

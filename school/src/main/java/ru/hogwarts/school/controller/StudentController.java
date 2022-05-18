@@ -59,8 +59,8 @@ public class StudentController {
         return studentService.findByAgeBetween(min, max);
     }
 
-    @GetMapping("{student}")
-    public ResponseEntity findFaculty(@PathVariable String student) {
-        return ResponseEntity.ok(studentService.getFaculty(student));
+    @GetMapping("/faculty")
+    public ResponseEntity findFaculty(@RequestParam Long studentId) {
+        return ResponseEntity.ok(studentService.getFaculty(studentId));
     }
 }
