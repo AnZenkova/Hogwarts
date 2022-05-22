@@ -45,8 +45,8 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity filterFaculty(@RequestParam int age) {
+    @GetMapping("/age")
+    public ResponseEntity filterStudent(@RequestParam int age) {
         if (age == 0) {
             return ResponseEntity.badRequest().build();
         }

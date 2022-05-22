@@ -54,7 +54,7 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.filterFaculty(color));
     }
 
-    @GetMapping
+    @GetMapping("/colorAndName")
     public ResponseEntity findFaculty(@RequestParam String color,
                                      @RequestParam String name) {
         if (color != null && !color.isBlank()) {
