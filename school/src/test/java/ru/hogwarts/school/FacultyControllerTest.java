@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -85,10 +86,11 @@ public class FacultyControllerTest {
 
         Faculty faculty = new Faculty(id, name, color);
 
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
         when(facultyRepository.getById(any(Long.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/faculty" + any(Long.class)))
+                        .get("/faculty" + id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
@@ -106,46 +108,30 @@ public class FacultyControllerTest {
         facultyObject.put("name", name);
         facultyObject.put("color", color);
 
-        Faculty faculty = new Faculty(id, name, color);
+        Faculty editFaculty = new Faculty(id, name, color);
 
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
-
-        String name2 = "fagd";
-        String color2 = "vfav";
-
-        JSONObject facultyObject2 = new JSONObject();
-        facultyObject.put("name", name2);
-        facultyObject.put("color", color2);
-
-        Faculty faculty2 = new Faculty(id, name2, color2);
-
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty2);
-        when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty2));
+        when(facultyRepository.save(any(Faculty.class))).thenReturn(editFaculty);
 
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/faculty")
-                .content(facultyObject2.toString())
+                .content(facultyObject.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.name").value(name2))
-                .andExpect(jsonPath("$.color").value(color2));
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.color").value(color));
     }
 
     @Test
     public void deleteFacultyTest() throws Exception {
         Long id = 1L;
-        String name = "Bob";
-        String color = "kjhbhgk";
 
-        Faculty faculty = new Faculty(id, name, color);
-
-        when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
+        doNothing().when(facultyRepository).deleteById(id);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/faculty" + any(Long.class)))
+                        .delete("/faculty/" + id))
                 .andExpect(status().isOk());
     }
 
