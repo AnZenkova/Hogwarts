@@ -9,12 +9,13 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.service.StudentService;
 
-import java.net.URL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StudentControllerTest {
@@ -24,6 +25,9 @@ public class StudentControllerTest {
 
     @Autowired
     private StudentController studentController;
+
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -84,13 +88,13 @@ public class StudentControllerTest {
                 .isNotNull();
     }
 
-//    @Test
-//    public void deleteStudentTest() throws Exception {
-//
-//        Student student = new Student(2L, "Рон Уизли", 13);
-//        Long id = student.getId();
-//        Assertions
-//                .assertThat(this.testRestTemplate.delete("http://localhost:" + port + "/student" + id, student, String.class))
-//                .isNotNull;
-//    }
+    @Test
+    public void deleteStudentTest() throws Exception {
+
+        Student student = new Student(2L, "Рон Уизли", 13);
+
+        Student savedStudent = studentService.createStudent(student);
+        ResponseEntity<String> resp = testRestTemplate.exchange("http://localhost:" + port + "/student/" + savedStudent.getId(), HttpMethod.DELETE, new HttpEntity<>(""), String.class);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+    }
 }
