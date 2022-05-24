@@ -53,12 +53,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public String getFaculty(Long studentId) {
-//        Student student1 = students.stream()
-//                .filter(s -> s.getName().equals(student))
-//                .findFirst()
-//                .get();
         Student student = findStudent(studentId);
         Faculty faculty = student.getFaculty();
         return faculty.getName();
+    }
+
+    public Integer getNumberOfStudents() {
+        return studentRepository.getNumberOfStudents();
+    }
+
+    public Integer getMiddleAgeOfStudents() {
+        return studentRepository.getMiddleAgeOfStudents();
+    }
+
+    public List<Student> getLastFiveStudent() {
+        return studentRepository.getLastFiveStudent();
     }
 }
