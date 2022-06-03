@@ -64,4 +64,8 @@ public class FacultyServiceImpl implements FacultyService {
                 .get();
         return faculty1.getStudents();
     }
+
+    public List<Faculty> getFacultyByColorAndName(String color, String name) {
+        return facultyRepository.getFacultyByColorAndName(color, name);
+    }
 }

@@ -1,6 +1,7 @@
 package ru.hogwarts.school.controller;
 
 
+import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
@@ -69,5 +70,12 @@ public class FacultyController {
     @GetMapping("{faculty}")
     public Collection<Student> getStudents(@PathVariable String faculty) {
         return facultyService.getStudents(faculty);
+    }
+
+    @GetMapping("/get{color}{name}")
+    public ResponseEntity<List<Faculty>> getFacultyByColorAndName(@PathVariable String color,
+                                                                     @PathVariable String name) {
+        List<Faculty> faculties = facultyService.getFacultyByColorAndName(color, name);
+        return ResponseEntity.ok(faculties);
     }
 }
