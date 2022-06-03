@@ -3,8 +3,11 @@ package ru.hogwarts.school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("student")
@@ -42,11 +45,37 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity filterFaculty(@RequestParam int age) {
+    @GetMapping("/age")
+    public ResponseEntity filterStudent(@RequestParam int age) {
         if (age == 0) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(studentService.filterStudent(age));
+    }
+
+    @GetMapping("{min}, {max}")
+    public Collection<Student> findByAgeBetween(@PathVariable int min,
+                                                @PathVariable int max) {
+        return studentService.findByAgeBetween(min, max);
+    }
+
+    @GetMapping("/faculty")
+    public ResponseEntity findFaculty(@RequestParam Long studentId) {
+        return ResponseEntity.ok(studentService.getFaculty(studentId));
+    }
+
+    @GetMapping("/quantity")
+    public ResponseEntity getNumberOfStudent() {
+        return ResponseEntity.ok(studentService.getNumberOfStudents());
+    }
+
+    @GetMapping("/middleAge")
+    public ResponseEntity getMiddleAgeOfStudents() {
+        return ResponseEntity.ok(studentService.getMiddleAgeOfStudents());
+    }
+
+    @GetMapping("/lastStudents")
+    public Collection<Student> getLastFiveStudent() {
+        return studentService.getLastFiveStudent();
     }
 }
