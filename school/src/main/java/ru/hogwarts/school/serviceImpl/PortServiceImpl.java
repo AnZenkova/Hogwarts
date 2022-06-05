@@ -8,16 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.hogwarts.school.model.Port;
-import ru.hogwarts.school.service.PortService;
 
 import java.net.URL;
 
 
 @Service
 @Profile("student")
-public class PortServiceImpl implements PortService {
-
+public class PortServiceImpl {
 
     @Value("${port.url}")
     private String portUrl;
@@ -25,9 +22,9 @@ public class PortServiceImpl implements PortService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Port getThisPort(){
+    public int getThisPort(){
         URL url = restTemplate.exchange(portUrl, HttpMethod.GET, new HttpEntity<>(HttpHeaders.EMPTY), URL.class).getBody();
-        Port port = new Port(url.getPort());
+        int port = url.getPort();
         return port;
     }
 }
