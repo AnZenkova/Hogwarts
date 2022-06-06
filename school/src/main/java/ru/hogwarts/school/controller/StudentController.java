@@ -84,4 +84,9 @@ public class StudentController {
         List<Student> students = studentService.getStudentByName(name);
         return ResponseEntity.ok(students);
     }
+
+    @GetMapping("/findAllA")
+    public ResponseEntity findAll() {
+        return ResponseEntity.ok(studentService.findAllA());
+    }
 }

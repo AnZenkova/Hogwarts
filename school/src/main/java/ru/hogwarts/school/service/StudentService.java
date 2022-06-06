@@ -20,4 +20,5 @@ public interface StudentService {
     Integer getMiddleAgeOfStudents();
     List<Student> getLastFiveStudent();
     List<Student> getStudentByName(String name);
+    List<String> findAllA();
 }

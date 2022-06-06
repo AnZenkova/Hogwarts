@@ -9,6 +9,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -88,5 +89,16 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getStudentByName(String name) {
         logger.debug("The method is called getStudentByName from the student class");
         return studentRepository.getStudentByName(name);
+    }
+
+    public List<String> findAllA() {
+
+        List<Student> studentList = studentRepository.findAll();
+        List<String> students = studentList.stream()
+                .map(student -> student.getName().substring(0, 1).toUpperCase() + student.getName().substring(1))
+                .filter(student -> student.charAt(0) == 'A')
+                .sorted()
+                .collect(Collectors.toList());
+        return students;
     }
 }
