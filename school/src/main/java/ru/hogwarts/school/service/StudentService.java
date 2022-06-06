@@ -4,6 +4,7 @@ import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.Set;
 
 public interface StudentService {
@@ -21,4 +22,5 @@ public interface StudentService {
     List<Student> getLastFiveStudent();
     List<Student> getStudentByName(String name);
     List<String> findAllA();
+    OptionalDouble averageAgeAllStudent();
 }

@@ -8,10 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -100,5 +97,13 @@ public class StudentServiceImpl implements StudentService {
                 .sorted()
                 .collect(Collectors.toList());
         return students;
+    }
+
+    public OptionalDouble averageAgeAllStudent() {
+        List<Student> studentList = studentRepository.findAll();
+        OptionalDouble average = studentList.stream()
+                .mapToInt(Student::getAge)
+                .average();
+        return average;
     }
 }
