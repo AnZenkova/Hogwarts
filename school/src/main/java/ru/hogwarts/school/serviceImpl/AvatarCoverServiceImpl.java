@@ -1,6 +1,8 @@
 package ru.hogwarts.school.serviceImpl;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,10 @@ public class AvatarCoverServiceImpl implements AvatarCoverService {
         this.avatarRepository = avatarRepository;
     }
 
+    Logger logger = LoggerFactory.getLogger(AvatarCoverServiceImpl.class);
+
     public void uploadCover(Long studentId, MultipartFile file) throws IOException {
+        logger.debug("The method is called uploadCover from the avatar class");
         Student student = studentService.findStudent(studentId);
 
         Path filePath = Path.of(coversDir, studentId + "." + getExtension(file.getOriginalFilename()));
@@ -68,6 +73,7 @@ public class AvatarCoverServiceImpl implements AvatarCoverService {
     }
 
     public Avatar findAvatar(Long studentId) {
+        logger.debug("The method is called findAvatar from the avatar class");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
@@ -89,6 +95,7 @@ public class AvatarCoverServiceImpl implements AvatarCoverService {
     }
 
     public List<Avatar> getAllAvatar(Integer pageNumber, Integer pageSize) {
+        logger.debug("The method is called getAllAvatar from the avatar class");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }

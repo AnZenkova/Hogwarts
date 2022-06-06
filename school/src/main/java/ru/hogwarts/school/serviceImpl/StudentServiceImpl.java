@@ -1,5 +1,7 @@
 package ru.hogwarts.school.serviceImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
+
     StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -21,26 +25,32 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Student createStudent(Student student) {
+        logger.debug("The method is called createStudent from the student class");
         return studentRepository.save(student);
     }
 
     public Student findStudent(Long id) {
+        logger.debug("The method is called findStudent from the student class");
         return studentRepository.getById(id);
     }
 
     public Student editStudent(Student student) {
+        logger.debug("The method is called editStudent from the student class");
         return studentRepository.save(student);
     }
 
     public void deleteStudent(Long id) {
+        logger.debug("The method is called save from the student class");
         studentRepository.deleteById(id);
     }
 
     public List<Student> getAll() {
+        logger.debug("The method is called deleteStudent from the student class");
         return studentRepository.findAll();
     }
 
     public Set<Student> filterStudent(int age) {
+        logger.debug("The method is called filterStudent from the student class");
         List<Student> students = getAll();
         Set<Student> filter = students.stream()
                 .filter(s -> s.getAge() == age)
@@ -49,28 +59,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Collection<Student> findByAgeBetween(int min, int max) {
+        logger.debug("The method is called findByAgeBetween from the student class");
         return studentRepository.findByAgeBetween(min, max);
     }
 
     public String getFaculty(Long studentId) {
+        logger.debug("The method is called getFaculty from the student class");
         Student student = findStudent(studentId);
         Faculty faculty = student.getFaculty();
         return faculty.getName();
     }
 
     public Integer getNumberOfStudents() {
+        logger.debug("The method is called getNumberOfStudents from the student class");
         return studentRepository.getNumberOfStudents();
     }
 
     public Integer getMiddleAgeOfStudents() {
+        logger.debug("The method is called getMiddleAgeOfStudents from the student class");
         return studentRepository.getMiddleAgeOfStudents();
     }
 
     public List<Student> getLastFiveStudent() {
+        logger.debug("The method is called getLastFiveStudent from the student class");
         return studentRepository.getLastFiveStudent();
     }
 
     public List<Student> getStudentByName(String name) {
+        logger.debug("The method is called getStudentByName from the student class");
         return studentRepository.getStudentByName(name);
     }
 }
