@@ -19,4 +19,5 @@ public interface FacultyService {
     List<Faculty> findByNameIgnoreCase(String name);
     Collection<Student> getStudents(String faculty);
     List<Faculty> getFacultyByColorAndName(String color, String name);
+    String findNameMaxLength();
 }

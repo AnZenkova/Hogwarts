@@ -78,4 +78,10 @@ public class FacultyController {
         List<Faculty> faculties = facultyService.getFacultyByColorAndName(color, name);
         return ResponseEntity.ok(faculties);
     }
+
+    @GetMapping("/findNameMaxLength")
+    public ResponseEntity findNameMaxLength() {
+        String facultyName = facultyService.findNameMaxLength();
+        return ResponseEntity.ok(facultyName);
+    }
 }
