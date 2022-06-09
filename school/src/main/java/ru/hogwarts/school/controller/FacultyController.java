@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("faculty")
@@ -77,5 +78,21 @@ public class FacultyController {
                                                                      @PathVariable String name) {
         List<Faculty> faculties = facultyService.getFacultyByColorAndName(color, name);
         return ResponseEntity.ok(faculties);
+    }
+
+    @GetMapping("/findNameMaxLength")
+    public ResponseEntity findNameMaxLength() {
+        String facultyName = facultyService.findNameMaxLength();
+        return ResponseEntity.ok(facultyName);
+    }
+
+    @GetMapping("/int")
+    public int getInt() {
+
+        int sum = Stream.iterate(1, a -> a +1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b );
+        return sum;
     }
 }
