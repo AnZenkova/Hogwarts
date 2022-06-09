@@ -24,4 +24,5 @@ public interface StudentService {
     List<String> findAllA();
     OptionalDouble averageAgeAllStudent();
     void getAllStudentInConsole();
+    void getAllStudentInConsole2();
 }

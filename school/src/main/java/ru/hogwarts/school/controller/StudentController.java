@@ -100,4 +100,9 @@ public class StudentController {
     public void getAllStudentInConsole() {
         studentService.getAllStudentInConsole();
     }
+
+    @GetMapping("/getAllStudentInConsole2")
+    public void getAllStudentInConsole2() {
+        studentService.getAllStudentInConsole2();
+    }
 }
