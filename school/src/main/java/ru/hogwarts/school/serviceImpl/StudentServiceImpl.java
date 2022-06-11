@@ -106,4 +106,64 @@ public class StudentServiceImpl implements StudentService {
                 .average();
         return average;
     }
+
+    public void getAllStudentInConsole() {
+
+        List<Student> students = studentRepository.findAll();
+
+        printStudent(students.get(0));
+        printStudent(students.get(1));
+
+        Thread thread1 = new Thread(() ->{
+
+            printStudent(students.get(2));
+            printStudent(students.get(3));
+
+        });
+        thread1.start();
+
+        Thread thread2 = new Thread(() ->{
+
+            printStudent(students.get(4));
+            printStudent(students.get(5));
+
+        });
+        thread2.start();
+
+    }
+
+    public void getAllStudentInConsole2() {
+
+        List<Student> students = studentRepository.findAll();
+
+        printStudent2(students.get(0));
+        printStudent2(students.get(1));
+
+        Thread thread1 = new Thread(() ->{
+
+            printStudent2(students.get(2));
+            printStudent2(students.get(3));
+
+        });
+        thread1.start();
+
+        Thread thread2 = new Thread(() ->{
+
+            printStudent2(students.get(4));
+            printStudent2(students.get(5));
+
+        });
+        thread2.start();
+
+    }
+
+    private void printStudent(Student student) {
+        System.out.println(student);
+    }
+
+    private void printStudent2(Student student) {
+        synchronized (Student.class) {
+            System.out.println(student);
+        }
+    }
 }

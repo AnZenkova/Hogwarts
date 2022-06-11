@@ -95,4 +95,14 @@ public class StudentController {
     public ResponseEntity<OptionalDouble> averageAgeAllStudent() {
         return ResponseEntity.ok(studentService.averageAgeAllStudent());
     }
+
+    @GetMapping("/getAllStudentInConsole")
+    public void getAllStudentInConsole() {
+        studentService.getAllStudentInConsole();
+    }
+
+    @GetMapping("/getAllStudentInConsole2")
+    public void getAllStudentInConsole2() {
+        studentService.getAllStudentInConsole2();
+    }
 }
