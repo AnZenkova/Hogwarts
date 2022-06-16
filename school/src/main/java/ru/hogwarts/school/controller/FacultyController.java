@@ -95,6 +95,7 @@ public class FacultyController {
         return ResponseEntity.ok(facultyName);
     }
 
+
     @GetMapping("/int")
     public int getInt() {
 
