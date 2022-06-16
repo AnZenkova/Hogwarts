@@ -27,6 +27,7 @@ public class AvatarController {
         this.avatarCoverService = avatarCoverService;
     }
 
+    //Загружаем аватар студента
     @PostMapping(value = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadCover(@PathVariable Long id,
                                               @RequestParam MultipartFile cover) throws IOException {
@@ -37,6 +38,7 @@ public class AvatarController {
         return ResponseEntity.ok().build();
     }
 
+    // Получаем аватар студента из базы данных
     @GetMapping(value = "/{id}/cover/data")
     public ResponseEntity<byte[]> downloadCover(@PathVariable Long id) {
         Avatar avatar = avatarCoverService.findAvatar(id);
@@ -48,6 +50,7 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
 
+    // Получаем аватар студента
     @GetMapping(value = "/{id}/cover")
     public void downloadCover(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarCoverService.findAvatar(id);
@@ -62,6 +65,7 @@ public class AvatarController {
         }
     }
 
+    // Получаем все аватары студентов
     @GetMapping
     public ResponseEntity<List<Avatar>> getAllAvatar(@RequestParam("page") Integer pageNumber,
                                      @RequestParam("size") Integer pageSize) {
