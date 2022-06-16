@@ -1,3 +1,4 @@
+-- добавляем ограничения для таблиц в базе данных
 ALTER TABLE student
     ADD CONSTRAINT age_constraint CHECK ( age >= 16 );
 

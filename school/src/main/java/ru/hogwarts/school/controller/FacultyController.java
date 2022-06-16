@@ -22,11 +22,13 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    // Добавляем факультет в базу данных
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
     }
 
+    //Получаем факультет по id
     @GetMapping("{id}")
     public ResponseEntity getFaculty(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
@@ -36,18 +38,21 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+    // Вносим изменения в факультет
     @PutMapping
     public ResponseEntity editFaculty(@RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(faculty);
         return ResponseEntity.ok(foundFaculty);
     }
 
+    // Удаляем фкультет по id
     @DeleteMapping("{id}")
     public ResponseEntity deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
+    // Получаем факультет по цвету
     @GetMapping({"color"})
     public ResponseEntity filterFaculty(@PathVariable String color) {
         if (color == null) {
@@ -56,6 +61,7 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.filterFaculty(color));
     }
 
+    // Получаем факультет по цвету и имени игнорируя регистр
     @GetMapping("/colorAndName")
     public ResponseEntity findFaculty(@RequestParam String color,
                                      @RequestParam String name) {
@@ -68,11 +74,13 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
+    // Получаем список студентов по факультету
     @GetMapping("{faculty}")
     public Collection<Student> getStudents(@PathVariable String faculty) {
         return facultyService.getStudents(faculty);
     }
 
+    // Получаем факультет по цвету и названию
     @GetMapping("/get{color}{name}")
     public ResponseEntity<List<Faculty>> getFacultyByColorAndName(@PathVariable String color,
                                                                      @PathVariable String name) {
@@ -80,6 +88,7 @@ public class FacultyController {
         return ResponseEntity.ok(faculties);
     }
 
+    // Получаем факультет у которого самое длиное название
     @GetMapping("/findNameMaxLength")
     public ResponseEntity findNameMaxLength() {
         String facultyName = facultyService.findNameMaxLength();

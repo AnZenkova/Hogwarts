@@ -1,3 +1,4 @@
+-- Создаем таблицу "Машины" с ограничениями
 CREATE TABLE cars
 (
     id        INTEGER PRIMARY KEY,
